@@ -16,24 +16,23 @@ using namespace std;
 class Solution {
 public:
   bool canJump(vector<int>& nums) {
-    vector<int>::iterator it = nums.begin();
-    if(it + *it >= nums.end()-1) { return true; } // we know we can reach the goal
-    if(*it <= 0) { return false; } // pointless wasting any more time on this one
+    vector<int>::iterator start = nums.begin();
+    // if(*start <= 0) { return false; } // pointless wasting any more time on this one
+    vector<int>::iterator end = nums.begin() + *(nums.begin());
+    return go(nums, start, end);
+  }
 
-    vector<int>::iterator min = it;
-    vector<int>::iterator max = nums.begin() + *it;
-    vector<int>::iterator last_max = max;
-    it = max;
-
-    while(1) {
-      for(it = max ; it >= min; --it) {
-        max = (it + *it > max) ? it + *it : max;
-        if(max >= nums.end()-1) { return true; } // we're done!
+  bool go(vector<int>& nums, vector<int>::iterator start, vector<int>::iterator end) {
+    // cout << "entered go()" << endl;
+    if(end + *end >= nums.end()-1) { return true; } // we know we can reach the goal
+    for(vector<int>::iterator it = end; it != start; --it) {
+      if(it + *it > end) {
+        if(go(nums, end, it + *it)) {
+          return true;
+        }
       }
-      if(max == last_max) { return false; } // can't go any further
-      min = last_max;
-      last_max = max;
     }
+    return false;
   }
 };
 
