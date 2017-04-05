@@ -12,102 +12,30 @@
 using namespace std;
 
 
-typedef struct
-{
-  int index;
-  int height;
-  // Pair(int in, int h) {index = in; height = h;}
-} Pair;
+// typedef struct
+// {
+//   int index;
+//   int height;
+//   // Pair(int in, int h) {index = in; height = h;}
+// } Pair;
 
 
-class Solution
-{
+class Solution {
 public:
-  int maxArea(vector<int>& height)
-  {
-    // LeetCode has an incorrect test case, BSing through it:
-    if(height.size() == 3 && height[0] == 1 && height[1] == 2 && height[2] == 1) { return 2; }
-
-    vector<Pair> local_maxes;
-    Pair tmp;
-
-    vector<int>::iterator global_max_f = max_element(height.begin(), height.end());
-    // cout << "max element, index:" << endl;
-    // cout << *global_max_f << endl;
-    // cout << distance(height.begin(), global_max_f) << endl;
-
-
-    // iterate forward to max:
-    int index = 0;
-    int lowest = -1;
-    vector<int>::iterator it = height.begin();
-    for( ; it != global_max_f+1; ++it)
-    {
-      if(*it > lowest)
-      {
-        tmp.index = index;
-        tmp.height = *it;
-        local_maxes.push_back(tmp);
-        lowest = *it;
-      }
-      ++index;
-    }
-
-    // now reverse:
-    // cout << "index should be = " << local_maxes.size()-1 << endl;
-    int derp = local_maxes.size();
-    vector<Pair>::iterator insert_loc = local_maxes.begin() + derp;
-    // const vector<Pair>::iterator insert_loc = local_maxes.end();
-    // cout << insert_loc->index << " is index and height is " << insert_loc->height << endl;
-    // cout << "insert_loc: " << &insert_loc << endl;
-    // cout << "CAPACITY: " << local_maxes.capacity() << endl;
-    // cout << "local_maxes PRIOR:" << endl;
-    // for(vector<Pair>::iterator it = local_maxes.begin(); it != local_maxes.end(); ++it)
-    // {
-    //   cout << it->index << ", " << it->height << endl;
-    // }
-    // cout << "END OF local_maxes" << endl;
-    index = height.size()-1;
-    lowest = -1;
-    for(vector<int>::iterator rit = height.end()-1; rit != global_max_f; --rit)
-    {
-      // cout << "insert_loc: " << &insert_loc << endl;
-      // cout << "CAPACITY: " << local_maxes.capacity() << endl;
-      if(*rit > lowest)
-        {
-          tmp.index = index;
-          tmp.height = *rit;
-          local_maxes.insert(local_maxes.begin() + derp, tmp);
-          lowest = *rit;
-        }
-        // cout << "local_maxes IN THE LOOP:" << endl;
-        // for(vector<Pair>::iterator it = local_maxes.begin(); it != local_maxes.end(); ++it)
-        // {
-        //   cout << it->index << ", " << it->height << endl;
-        // }
-        // cout << "END OF local_maxes" << endl;
-      --index;
-    }
-
-    // debug print
-    // cout << "local_maxes:" << endl;
-    // for(vector<Pair>::iterator it = local_maxes.begin(); it != local_maxes.end(); ++it)
-    // {
-    //   cout << it->index << ", " << it->height << endl;
-    // }
-    // cout << "END OF local_maxes" << endl;
-
-    // now actually do the calculation
+  int maxArea(vector<int>& height) {
+    int i = 0, j = height.size()-1;
+    int area;
     int max_area = 0;
-    for(vector<Pair>::iterator it = local_maxes.begin()+1; it != local_maxes.end(); ++it)
-    {
-      int dist = it->index - (it-1)->index;
-      int height = (it->height > (it-1)->height) ? (it-1)->height : it->height;
-      int area = dist * height;
+    while(i<j) {
+      area = (j-i) * min(height[i], height[j]);
       max_area = (area > max_area) ? area : max_area;
-
+      // cout << "i, j, height1, height2 (max_area): " << i << ", " << j << ", " << height[i] << ", " << height[j] << " (" << max_area << ")" <<  endl;
+      if(height[i] < height[j]) {
+        while(height[i+1] <= height[i++]) { ; }
+      } else {
+        while(height[j-1] <= height[j--]) { ; }
+      }
     }
-    cout << "max_area = " << max_area << endl;
     return max_area;
   }
 };
@@ -116,9 +44,8 @@ public:
 int main(int argc, char** argv)
 {
   // vector<int> height = {3, 2, 5, 4, 7, 1, 3, 4, 2, 6, 3};
-  vector<int> height = {1, 3, 2, 5, 25, 24, 5};
-  // height.push_back(7);
-  // height.push_back(6);
+  // vector<int> height = {1, 3, 2, 5, 25, 24, 5};
+  vector<int> height = {1, 2, 1};
 
   cout << "elements in height vector:" << endl;
   for(vector<int>::iterator it = height.begin(); it != height.end(); ++it)
@@ -127,7 +54,7 @@ int main(int argc, char** argv)
   }
 
   Solution sol;
-  sol.maxArea(height);
+  cout << "ANSWER IS: " << sol.maxArea(height) << endl;
 
   return 0;
 }
