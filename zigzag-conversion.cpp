@@ -32,15 +32,18 @@ public:
     int dir = -1;
     int i = 0;
     int index = 0;
+    char *idx = &s[0];
 
     while(index < s.size()) {
-      v[i] += s[index];
+      // v[i] += s[index];
+      v[i] += *idx;
       // cout << "index, i, v[i], s[i]: " << index << ", " << i << ", " << v[i] << ", " << s[i] << endl;
       if(i % (numRows-1) == 0) {
         dir *= -1;
       }
       i += dir;
       index++;
+      idx++;
     }
 
     string output;
