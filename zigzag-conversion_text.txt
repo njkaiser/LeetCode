@@ -1,0 +1,49 @@
+3 ROWS:
+P   A   H   N
+A P L S I I G
+Y   I   R
+
+
+4 ROWS:
+P     I     N
+A   L S   I G
+Y A   H R
+P     I
+
+
+5 ROWS:
+P        H
+A      S I
+Y    I   R
+P  L     I  G
+A        N
+
+
+
+
+
+
+
+
+3 ROWS:
+
+1   5   9     13
+2 4 6 8 10 12 14
+3   7   11
+
+
+4 ROWS:
+
+1     7        13
+2   6 8     12 14
+3 5   9  11
+4     10
+
+
+5 ROWS:
+
+1        9
+2      8 10
+3    7   11
+4  6     12 14
+5        13
