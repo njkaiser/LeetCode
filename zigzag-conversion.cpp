@@ -26,32 +26,47 @@ class Solution {
 public:
   string convert(string s, int numRows) {
 
-    if(numRows < 2) { return s; }
+    if(numRows <= 1) { return s; }
 
-    vector<string> v(numRows);
-    int dir = -1;
-    int i = 0;
-    int index = 0;
+    // vector<string> v(numRows);
+    // int dir = -1;
+    // int i = 0;
+    // int index = 0;
     char *idx = &s[0];
 
-    while(index < s.size()) {
-      // v[i] += s[index];
-      v[i] += *idx;
-      // cout << "index, i, v[i], s[i]: " << index << ", " << i << ", " << v[i] << ", " << s[i] << endl;
-      if(i % (numRows-1) == 0) {
-        dir *= -1;
+    // while(index < sz) {
+    //   // v[i] += s[index];
+    //   v[i] += *idx;
+    //   // cout << "index, i, v[i], s[i]: " << index << ", " << i << ", " << v[i] << ", " << s[i] << endl;
+    //   if(i % (numRows-1) == 0) { dir *= -1; } // switch directions when appropriate
+    //   i += dir;
+    //   index++;
+    //   idx++;
+    // }
+
+    string output;//(sz);
+    // for(int j = 0; j < numRows; ++j) {
+    //   output += v[j];
+    // }
+    int sz = s.size();
+    for(int i = 0; i < numRows; ++i) {
+      int loop = i;
+      for(int j = i; j < sz || j-2*loop > i; j += 2*numRows-2) {
+        if(j-2*loop > i && i != 0 && i != numRows-1) {
+          output += *(&s[0] + j - 2*(loop-i+1));
+          cout << "*i: " << i << "\tj= " << j << "\tloop: " << loop << "\toutput: " << output << endl;
+          loop++;
+        }
+        if(j < sz) {
+          idx = &s[0] + j;
+          output += *idx;
+          cout << " i: " << i << "\tj= " << j << "\tloop: " << loop << "\toutput: " << output << endl;
+        }
+        else {
+          // cout << "DONE-ish?" << endl;
+        }
       }
-      i += dir;
-      index++;
-      idx++;
     }
-
-    string output;
-    for(int j = 0; j < numRows; ++j) {
-      output += v[j];
-    }
-
-    // cout << "output: " << output << endl;
     return output;
   }
 };
@@ -61,6 +76,7 @@ int main(int argc, char** argv)
 {
   int rows = 3;
   string input = "PAYPALISHIRING";
+  // string input = "ABCD";
 
   Solution sol;
   string answer = sol.convert(input, rows);
