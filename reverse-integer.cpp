@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <climits>
 
 using namespace std;
 
@@ -16,30 +17,20 @@ using namespace std;
 class Solution {
 public:
   int reverse(int x) {
-
-    // int absx = 
-    if(abs(x) < 10) { return x; }
-    int len = log10(abs(x)) + 1;
-
     long output = 0;
-    for(int i = 1; i <= len; ++i) {
-      output *= 10;
-      output += (x % 10);
-      // output += (x % 10) * (long)pow(10, len-i);
-      // cout << "output at iteration " << i << ": " << output << endl;
+    while(x) {
+      output = output*10 + x%10;
+      // cout << "output = " << output << endl;
       x /= 10;
     }
-    output = (output > 2147483647) ? 0 : output;
-    output = (output < -2147483648) ? 0 : output;
-    return (int)output;
+    return (output > INT_MAX || output < INT_MIN) ? 0 : output;
   }
 };
 
 
 int main(int argc, char** argv)
 {
-  // int x = 1534236469;
-  int x = 12345;
+  int x = -321;
 
   Solution sol;
   int answer = sol.reverse(x);
