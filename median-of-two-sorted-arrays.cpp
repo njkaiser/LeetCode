@@ -24,14 +24,28 @@ using namespace std;
 class Solution {
 public:
   double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-    //derp
-    cout << nums1.size() << endl;
+    int total_size = nums1.size() + nums2.size();
+    cout << "total_size: " << total_size << endl;
+
+    if(nums1.back() < *nums2.begin()) {
+      cout << "STUFF" << endl;
+      return
+    }
+
     return 0.0;
-  }
+  } // END OF FUNCTION findMedianSortedArrays()
 
-  int binarySearch(vector<int>& nums) {
 
-  }
+  // int binarySearch(vector<int>& nums, int goal, int beg, int end) {
+  //
+  //   int d = end - begin;
+  //
+  //   // base case:
+  //   if(d < 2) {
+  //     return 0;
+  //   }
+  // }
+
 
 }; // END OF CLASS
 
