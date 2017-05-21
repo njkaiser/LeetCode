@@ -16,11 +16,11 @@ class Solution {
 public:
   void recursive_part(string S, vector<string>& output) {
 
-    cout << "input: " << endl;
-    for(int i = 0; i < output.size(); ++i) {
-      cout << output[i] << " ";
-    }
-    cout << endl;
+    // cout << "input: " << endl;
+    // for(int i = 0; i < output.size(); ++i) {
+    //   cout << output[i] << " ";
+    // }
+    // cout << endl;
 
     if(S.size()) {
       string letters;
@@ -33,13 +33,10 @@ public:
         case '7': letters = "pqrs"; break;
         case '8': letters =  "tuv"; break;
         case '9': letters = "wxyz"; break;
-        // default: break;
       }
 
       int N = letters.size();
-      cout << "letters size: " << N << endl;
-
-      // vector<string>::iterator it = output.begin();
+      // cout << "letters size: " << N << endl;
 
       vector<string> tmp = output;
       output.reserve(output.size() * N);
@@ -47,19 +44,12 @@ public:
         output.insert(output.end(), tmp.begin(), tmp.end());
       }
 
-      if(output[0].size()%2) {
-        for(int i = 0; i < output.size(); ++i) {
-          output[i] += letters[i/N];
-        }
-      }
-      else {
-        for(int i = 0; i < output.size(); ++i) {
-          output[i] += letters[i%N];
-        }
+      // cout << "size: " << output[0].size() << endl;
+      for(int i = 0; i < output.size(); ++i) {
+        output[i] += letters[i/tmp.size()];
       }
 
-      S = S.substr(1, S.size());
-      recursive_part(S, output);
+      recursive_part(S.substr(1, S.size()), output);
     }
   }
 
@@ -81,7 +71,6 @@ int main(int argc, char** argv)
   vector<string> answer = sol.letterCombinations(S);
 
   cout << "answer = " << endl;
-  // cout << answer.size() << endl;
   for(int i = 0; i < answer.size(); ++i) {
     cout << answer[i] << " ";
   }
