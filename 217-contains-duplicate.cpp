@@ -14,7 +14,7 @@ public:
   bool containsDuplicate(vector<int>& nums) {
     unordered_set<int> s;
     for(int i = 0; i < nums.size(); ++i) {
-      if(s.find(nums[i]) != s.end()) { return true; }
+      if(s.count(nums[i])) { return true; }
       s.insert(nums[i]);
     }
     return false;
@@ -24,12 +24,14 @@ public:
 
 int main(int argc, char** argv)
 {
-  // vector<int> nums {1, 2, 3};
-  vector<int> nums {1, 2, 2};
+  vector<int> nums1 {1, 2, 3};
+  vector<int> nums2 {1, 2, 2};
 
   Solution sol;
-  bool answer = sol.containsDuplicate(nums);
+  bool answer1 = sol.containsDuplicate(nums1);
+  bool answer2 = sol.containsDuplicate(nums2);
 
-  cout << "ANSWER: " << answer << endl;
+  cout << "ANSWER 1: " << answer1 << endl;
+  cout << "ANSWER 2: " << answer2 << endl;
   return 0;
 }
