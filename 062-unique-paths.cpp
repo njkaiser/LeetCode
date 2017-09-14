@@ -19,16 +19,18 @@ class Solution {
 public:
   int uniquePaths(int m, int n) {
     // base cases
-    if((m == 0 && n == 1) || (m == 1 && n == 0)) { return 1; }
-    if((m == 1 || n == 1)) { return 1; } // just in case
+    // if((m == 0 && n == 1) || (m == 1 && n == 0)) { return 1; }
+    if((m == 1 || n == 1)) { return 1; } // special case
 
     // check memoized values
     // IS THIS POSSIBLE? HOW TO MEMOIZE BASED ON m, n PAIR OF VALUES?
 
     // calculate output
     int output = 0;
-    if(m > 0) { output += uniquePaths(m-1, n); }
-    if(n > 0) { output += uniquePaths(m, n-1); }
+    // if(m > 0) { output += uniquePaths(m-1, n); }
+    output += uniquePaths(m-1, n);
+    // if(n > 0) { output += uniquePaths(m, n-1); }
+    output += uniquePaths(m, n-1);
     cout << "(" << m << ", " << n << ") output: " << output << endl;
     return output;
   }
@@ -37,16 +39,20 @@ public:
 
 int main(int argc, char** argv)
 {
-  int m1 = 3, n1 = 7;
-  int m2 = 1, n2 = 2;
-  int m3 = 1, n3 = 10;
-  int m3 = 23, n3 = 12;
+  int m1 = 3, n1 = 3;
+  int m2 = 1, n2 = 10;
+  int m3 = 3, n3 = 7;
+  // int m4 = 23, n4 = 12;
 
+  int ans;
   Solution sol;
-  cout << "m = " << m1 << ", n = " << n1 << ", sol = " << sol.uniquePaths(m1, n1) << endl;
-  cout << "m = " << m2 << ", n = " << n2 << ", sol = " << sol.uniquePaths(m2, n2) << endl;
-  cout << "m = " << m3 << ", n = " << n3 << ", sol = " << sol.uniquePaths(m3, n3) << endl;
-  cout << "m = " << m4 << ", n = " << n4 << ", sol = " << sol.uniquePaths(m4, n4) << endl;
+  ans = sol.uniquePaths(m1, n1);
+  cout << "m = " << m1 << ", n = " << n1 << ", sol = " << ans << endl;
+  // ans = sol.uniquePaths(m2, n2);
+  // cout << "m = " << m2 << ", n = " << n2 << ", sol = " << ans << endl;
+  // ans = sol.uniquePaths(m3, n3);
+  // cout << "m = " << m3 << ", n = " << n3 << ", sol = " << ans << endl;
+  // cout << "m = " << m4 << ", n = " << n4 << ", sol = " << sol.uniquePaths(m4, n4) << endl;
 
   return 0;
 }
