@@ -27,12 +27,9 @@ public:
     int idx = 0;
     int x = -1, y = 0;
     while(idx < m*n) {
-      // cout << "countmod2:" << count%2 << ", limits[countmod2]:" << limits[count%2] << endl;
       for(int i = 0; i < limits[count%2]; i++) {
         x += delta[count%4].first;
         y += delta[count%4].second;
-        // cout << "i: " << i << endl;
-        // cout << "[" << idx << "] \tx, y: " << x << ", " << y << endl;
         output[idx] = matrix[y][x];
         idx++;
       }
