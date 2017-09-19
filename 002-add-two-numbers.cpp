@@ -27,82 +27,73 @@ class Solution
 public:
   ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
   {
-    ListNode output(0);
-    ListNode* index = &output;
-
     int carryover = 0;
-    int sum = 0;
-    int done1 = 0;
-    int done2 = 0;
-    while(1)
-    {
-      int num1, num2;
+    ListNode* output = new ListNode(-1);
+    ListNode* next = output;
+    ListNode* curr;
+    while(l1 && l2) {
 
-      if(!done1)
-      {
-        num1 = l1->val;
-      }
-      else
-      {
-        num1 = 0;
-      }
-
-      if(!done2)
-      {
-        num2 = l2->val;
-      }
-      else
-      {
-        num2 = 0;
-      }
-
-      cout << "sum = num1 + num2 + carryover = " << num1 << " + " << num2 << " + " << carryover << endl;
-      sum = num1 + num2 + carryover;
-      cout << "carryover = sum / 10 = " << sum << " / 10" << endl;
+      curr = next;
+      int sum = l1->val + l2->val + carryover;
+      curr->val = sum % 10;
       carryover = sum / 10;
-      cout << "carryover: " << carryover << endl;
-      sum %= 10;
-      cout << "sum: " << sum << endl;
+      // cout << "sum: " << sum << ", val: " << curr->val << ", carryover: " << carryover << endl;
 
-      index->next = new ListNode(sum);
-      index = index->next;
-      // index->val = sum;
-      cout << sum << endl;
+      // reached the end of both numbers, rage quit
+      if(l1->next == NULL && l2->next == NULL && carryover == 0) { break; }
 
-      if(l1->next == NULL && l2->next == NULL)
-      {
-        cout << l1->next << " and " << l2->next << endl;
-        break;
-      }
+      // else check conditions and keep going
+      if(l1->next != NULL) { l1 = l1->next; }
+      // else { cout << "l1 is at the end" << endl; l1->val = 0; }
+      else { l1->val = 0; }
+      if(l2->next != NULL) { l2 = l2->next; }
+      // else { cout << "l2 is at the end" << endl; l2->val = 0; }
+      else { l2->val = 0; }
 
-      if(l1->next == NULL)
-      {
-        done1 = 1;
-      }
-      else
-        l1 = l1->next;
-
-      if(l2->next == NULL)
-      {
-        done2 = 1;
-      }
-      else
-        l2 = l2->next;
-
-      // l1 = (l1->next == NULL) ? l1 : l1->next;
-      // l2 = (l2->next == NULL) ? l2 : l2->next;
+      next = new ListNode(-1);
+      curr->next = next;
+      // cout << "got here" << endl;
     }
-
-    return output.next;
+    return output;
   }
 };
 
 
 int main(int argc, char** argv)
 {
-  Solution sol;
+  // set up inputs
+  ListNode* a = new ListNode(1);
+  ListNode* b = new ListNode(9);
+  ListNode* c = new ListNode(9);
+  a->next = b;
+  b->next = c;
 
-  // sol.addTwoNumbers()
+  ListNode* d = new ListNode(9);
+  ListNode* e = new ListNode(6);
+  ListNode* f = new ListNode(4);
+  // d->next = e;
+  // e->next = f;
+
+  // calculate solution
+  Solution sol;
+  ListNode* answer = sol.addTwoNumbers(a, d);
+  cout << "answer: " << endl;
+  while(answer) {
+    cout << answer->val;
+    if(answer->next != NULL) {
+      answer = answer->next;
+      cout << " -> ";
+    }
+    else {
+      break; // we're done
+    }
+  }
+  cout << endl;
+
+  // clean up
+  delete a; delete b; delete c; delete d; delete e; delete f;
+  // should also free solution pointers here, do if time
 
   cout << "DONE" << endl;
+  return 0;
 }
