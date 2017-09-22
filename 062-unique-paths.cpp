@@ -19,7 +19,7 @@ using namespace std;
 class Solution {
 public:
   int uniquePaths(int m, int n) {
-    if((m == 1 || n == 1)) { return 1; } // special case
+    if(m == 1 || n == 1) { return 1; } // special case
 
     vector<int> last(n, 1);
     vector<int> curr(n, 1);
